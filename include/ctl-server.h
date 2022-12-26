@@ -81,3 +81,6 @@ void ctl_server_event_disconnected(struct ctl*,
 
 void ctl_server_event_capture_changed(struct ctl*,
 		const char* captured_output);
+
+void ctl_server_event_desktop_size_changed(struct ctl*,
+		uint16_t width, uint16_t height);

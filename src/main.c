@@ -629,6 +629,15 @@ static void on_client_cut_text(struct nvnc_client* nvnc_client,
 	}
 }
 
+static void on_desktop_size_changed(struct nvnc_client* nvnc_client,
+		uint16_t width, uint16_t height)
+{
+	struct wayvnc_client* client = nvnc_get_userdata(nvnc_client);
+	struct wayvnc* self = client->server;
+
+	ctl_server_event_desktop_size_changed(self->ctl, width, height);
+}
+
 bool on_auth(const char* username, const char* password, void* ud)
 {
 	struct wayvnc* self = ud;
@@ -720,6 +729,7 @@ int init_nvnc(struct wayvnc* self, const char* addr, uint16_t port, bool is_unix
 
 	nvnc_set_new_client_fn(self->nvnc, on_nvnc_client_new);
 	nvnc_set_cut_text_fn(self->nvnc, on_client_cut_text);
+	nvnc_set_desktop_size_fn(self->nvnc, on_desktop_size_changed);
 
 	if (blank_screen(self) != 0)
 		goto failure;

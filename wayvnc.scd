@@ -249,7 +249,7 @@ Parameters:
 
 _CLIENT-DISCONNECTED_
 
-The *client-disconnected* event is sent when a VNC cliwnt disconnects from
+The *client-disconnected* event is sent when a VNC client disconnects from
 wayvnc.
 
 Parameters:
@@ -275,6 +275,18 @@ Parameters:
 
 *output=...*
 	The name of the output now being captured.
+
+_DESKTOP_SIZE_CHANGED_
+
+The *desktop-size-changed* event is sent when a VNC client sets desktop size.
+
+Parameters:
+
+*width=...*
+	A width of the requested desktop size.
+
+*height=...*
+	A height of the requested desktop size.
 
 ## IPC MESSAGE FORMAT
 

@@ -174,6 +174,7 @@ Events:
     - client-connected
     - client-disconnected
     - capture-changed
+    - desktop-size-changed
 
 Run 'wayvncctl help --event=event-name' for event-specific details.
 ```

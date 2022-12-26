@@ -89,6 +89,14 @@ struct cmd_info ctl_event_list[] = {
 			{NULL, NULL},
 		},
 	},
+	[EVT_DESKTOP_SIZE_CHANGED] = {"desktop-size-changed",
+		"Sent when a vnc client sets desktop size",
+		{
+			{"width", "Width of requested desktop size"},
+			{"height", "Height of requested desktop size"},
+			{NULL, NULL},
+		},
+	},
 
 };
 
