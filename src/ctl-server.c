@@ -937,3 +937,17 @@ void ctl_server_event_capture_changed(struct ctl* self,
 	ctl_server_enqueue_event(self, EVT_CAPTURE_CHANGED,
 			json_pack("{s:s}", "output", captured_output));
 }
+
+void ctl_server_event_fb_requested(struct ctl* self,
+		 const char* client_id,
+		 uint16_t x, uint16_t y,
+		 uint16_t width, uint16_t height)
+{
+	json_t* params = json_pack("{s:s, s:i, s:i, s:i, s:i}",
+			"id", client_id,
+			"x", x,
+			"y", y,
+			"width", width,
+			"height", height);
+	ctl_server_enqueue_event(self, EVT_FB_REQUESTED, params);
+}

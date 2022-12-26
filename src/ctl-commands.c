@@ -89,6 +89,17 @@ struct cmd_info ctl_event_list[] = {
 			{NULL, NULL},
 		},
 	},
+	[EVT_FB_REQUESTED] = {"fb-requested",
+		"Sent when a vnc client reqeuests framebuffer update",
+		{
+			{"id", "A unique identifier for this client"}, \
+			{"x", "X coordinate of requested framebuffer"},
+			{"y", "Y coordinate of requested framebuffer"},
+			{"width", "Width of requested framebuffer"},
+			{"height", "Height of requested framebuffer"},
+			{NULL, NULL},
+		},
+	},
 
 };
 

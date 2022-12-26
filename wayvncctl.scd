@@ -127,6 +127,7 @@ Events:
     - client-connected
     - client-disconnected
     - capture-changed
+    - fb-requested
 
 Run 'wayvncctl help --event=event-name' for event-specific details.
 ```

@@ -249,7 +249,7 @@ Parameters:
 
 _CLIENT-DISCONNECTED_
 
-The *client-disconnected* event is sent when a VNC cliwnt disconnects from
+The *client-disconnected* event is sent when a VNC client disconnects from
 wayvnc.
 
 Parameters:
@@ -275,6 +275,28 @@ Parameters:
 
 *output=...*
 	The name of the output now being captured.
+
+_FB_REQUESTED_
+
+The *fb-requested* event is sent when a VNC client requests a framebuffer
+update.
+
+Parameters:
+
+*id=...*
+	A unique identifier for this client.
+
+*x=...*
+	An X coordinate of the requested framebuffer.
+
+*y=...*
+	A Y coordinate of the requested framebuffer.
+
+*width=...*
+	A width of the requested framebuffer.
+
+*height=...*
+	A height of the requested framebuffer.
 
 ## IPC MESSAGE FORMAT
 

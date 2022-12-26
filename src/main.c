@@ -629,6 +629,18 @@ static void on_client_cut_text(struct nvnc_client* nvnc_client,
 	}
 }
 
+static void on_fb_update_req(struct nvnc_client* nvnc_client,
+		bool is_incremental, uint16_t x, uint16_t y, uint16_t width,
+		uint16_t height)
+{
+	struct wayvnc_client* client = nvnc_get_userdata(nvnc_client);
+  struct wayvnc* self = client->server;
+
+	char id[64];
+	snprintf(id, sizeof(id), "%u", client->id);
+	ctl_server_event_fb_requested(self->ctl, id, x, y, width, height);
+}
+
 bool on_auth(const char* username, const char* password, void* ud)
 {
 	struct wayvnc* self = ud;
@@ -720,6 +732,7 @@ int init_nvnc(struct wayvnc* self, const char* addr, uint16_t port, bool is_unix
 
 	nvnc_set_new_client_fn(self->nvnc, on_nvnc_client_new);
 	nvnc_set_cut_text_fn(self->nvnc, on_client_cut_text);
+	nvnc_set_fb_req_fn(self->nvnc, on_fb_update_req);
 
 	if (blank_screen(self) != 0)
 		goto failure;
