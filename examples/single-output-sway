@@ -59,7 +59,7 @@ collapse_outputs() {
         else
             echo "Creating a virtual display"
             $SWAYMSG create_output
-            echo "Waiting for virtusl output to be created..."
+            echo "Waiting for virtual output to be created..."
             HEADLESS=$(wait_for_output_matching 'HEADLESS-\\d+')
             echo "Switching to virtual output $HEADLESS"
             $WAYVNCCTL set-output --switch-to="$HEADLESS"
@@ -81,11 +81,25 @@ connection_count_now() {
     fi
 }
 
+rescale_outputs() {
+    local width=$1
+    local height=$2
+    for output in $($WAYVNCCTL -j get-outputs | jq -r '.[] | select(.captured==true).name'); do
+        echo "Rescaling output $output to ${width}x${height}"
+        $SWAYMSG output "$output" mode ${width}x${height}
+    done
+}
+
 while IFS= read -r EVT; do
     case "$(jq -r '.method' <<<"$EVT")" in
         client-*onnected)
             count=$(jq -r '.params.connection_count' <<<"$EVT")
             connection_count_now "$count"
+            ;;
+        desktop-size-changed)
+            width=$(jq -r '.params.width' <<<"$EVT")
+            height=$(jq -r '.params.height' <<<"$EVT")
+            rescale_outputs "$width" "$height"
             ;;
         wayvnc-shutdown)
             echo "wayvncctl is no longer running"
